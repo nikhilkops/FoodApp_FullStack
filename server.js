@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import cors from "cors";
+// import cors from "cors";
 
 dotenv.config();
 import express from "express";
@@ -7,6 +7,8 @@ const app = express();
 import morgan from "morgan";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
+
 // Router
 import authRouter from "./routes/authRouter.js";
 
@@ -15,18 +17,26 @@ import authRouter from "./routes/authRouter.js";
 // import { authenticateUser } from "./middlewares/authMiddleware.js";
 // import {validateTest} from "./middlewares/validationMiddleware.js";
 
+//public 
+ 
+import path from "path";
+
 // app.post("/api/v1/test", validateTest, (req, res) => {
 //   const { name } = req.body;
 //   res.json({ name });
 // });
 
-app.use(cors({ origin: "https://omnifood-nikhilverma.netlify.app" }));
+// app.use(cors({ origin: "https://omnifood-nikhilverma.netlify.app" }));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
-app.use(express.json());
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use(cookieParser());
+app.use(express.json());
+app.use(helmet());
+app.use(mongoSanitize());
+
+ 
 app.get("/", (req, res) => {
   res.send("test");
 });
