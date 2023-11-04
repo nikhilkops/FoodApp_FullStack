@@ -18,7 +18,8 @@ import authRouter from "./routes/authRouter.js";
 // import {validateTest} from "./middlewares/validationMiddleware.js";
 
 //public 
- 
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import path from "path";
 
 // app.post("/api/v1/test", validateTest, (req, res) => {
@@ -30,6 +31,7 @@ import path from "path";
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use(cookieParser());
 app.use(express.json());
