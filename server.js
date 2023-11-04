@@ -21,6 +21,7 @@ import authRouter from "./routes/authRouter.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
+import mongoSanitize from "express-mongo-sanitize";
 
 // app.post("/api/v1/test", validateTest, (req, res) => {
 //   const { name } = req.body;
